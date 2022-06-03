@@ -19,6 +19,22 @@ export class FromComponent implements OnInit {
         dosageMg: [''],
         time: [''],
       }),
+      ventilation: this.fb.group({
+        preOxygenation: [''],
+        masqueFacial: [''],
+        masqueLarynge: [''],
+        laryngoStandrd: [''],
+        videoLaryngoscopie: [''],    
+        fibroIntubation: [''],
+      }),
+      precisions: this.fb.group({
+        volumeRetransfuseMl: [''],
+        precision: [''],
+      }),
+      chekded: this.fb.group({
+        appuiSverifies: [''],
+        instalation: [''],
+      })
     });
   }
 
