@@ -1,73 +1,106 @@
-<form class="container d-flex justify-content-center flex-column col-8" [formGroup]="form" (ngSubmit)="onSubmit()">
-
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="paracetamol"
-      (change)="setParacetamolSelected($event)">
-    <label class="form-check-label" for="paracetamol">Paracetamol</label>
-  </div>
-  <div class="d-flex" *ngIf="isParacetamolSelected" formGroupName="paracetamol">
-    <div class="form-group m-3">
-      <label for="dosageMg">dosage (mg)</label>
-      <input type="number" class="form-control" id="dosageMg" formControlName="dosageMg">
-    </div>
-    <div class="form-group m-3">
-      <label for="time">heure</label>
-      <input type="time" class="form-control" id="time" formControlName="time">
+<div class="container d-flex">
+  <div class="m-3">
+    <div>
+      <p>Dirty: {{ form.dirty }}</p>
+      <p>Pristine: {{ form.pristine }}</p>
+      <p >Valid: {{ form.valid }}</p>
+      <p>InValid: {{ form.invalid }}</p>
+      <p>Value:</p>
+      <pre>{{ form.value | json }} </pre>
     </div>
   </div>
+  <form class="container d-flex justify-content-center flex-column col-8" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <div formGroupName="ventilation">
-    <div class="d-flex  justify-content-center m-3">
-      <input formControlName="preOxygenation" type="checkbox" class="btn-check" id="preOxygenation" autocomplete="off">
-      <label class="btn btn-outline-primary" for="preOxygenation">preOxygenation</label>
-    </div>
-    <h4>Ventilation</h4>
-    <div class="d-flex justify-content-between">
-
-      <input formControlName="masqueFacial" type="checkbox" class="btn-check" id="masqueFacial" autocomplete="off">
-      <label class="btn btn-outline-primary" for="masqueFacial">masque facial</label>
-
-      <input formControlName="masqueLarynge" type="checkbox" class="btn-check" id="masqueLarynge" autocomplete="off">
-      <label class="btn btn-outline-primary" for="masqueLarynge">masque Larynge </label>
-
-      <input formControlName="laryngoStandrd" type="checkbox" class="btn-check" id="laryngoStandrd" autocomplete="off">
-      <label class="btn btn-outline-primary" for="laryngoStandrd">laryngo Standrd</label>
-    </div>
-
-    <div class="d-flex justify-content-between m-3">
-      <input formControlName="videoLaryngoscopie" type="checkbox" class="btn-check" id="videoLaryngoscopie"
-        autocomplete="off">
-      <label class="btn btn-outline-primary" for="videoLaryngoscopie">videoLaryngoscopie</label>
-
-      <input formControlName="fibroIntubation" type="checkbox" class="btn-check" id="fibroIntubation"
-        autocomplete="off">
-      <label class="btn btn-outline-primary" for="fibroIntubation">fibro intubation</label>
-    </div>
-
-  </div>
-
-  <div formGroupName="chekded" class="mt-3 mb-3" >
     <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="appuiSverifies">
-      <label class="form-check-label" for="appuiSverifies">appuis verifies /protégés</label>
+      <input type="checkbox" class="form-check-input" id="paracetamol"
+        (change)="setParacetamolSelected($event)">
+      <label class="form-check-label" for="paracetamol">Paracetamol</label>
     </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="instalation">
-      <label class="form-check-label" for="instalation">instalation validee par operateur</label>
+    <div class="d-flex" *ngIf="isParacetamolSelected" formGroupName="paracetamol">
+      <div class="form-group m-3">
+        <label for="dosageMg">dosage (mg)</label>
+        <input type="number"  class="form-control" id="dosageMg" formControlName="dosageMg">
+        <!-- <p *ngIf="form.paracetamol.dosageMg">err</p> -->
+      </div>
+      <div class="form-group m-3">
+        <label for="time">heure</label>
+        <input type="time" class="form-control" id="time" formControlName="time">
+      </div>
     </div>
-  </div>
+    
+    <div formGroupName="imc" class="d-flex justify-content-between m-3">
+      <div class="form-input">
+        <label for="poids">poids :</label>
+        <input type="number" class="form-control" id="poids" formControlName="poids" name="poids" placeholder="almokdad" required>
+      </div>
+      <div class="form-input">
+        <label for="taile">taile en m :</label>
+        <input type="number" class="form-control" id="taile" formControlName="taile" name="taile" placeholder="almokdad" required>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="CalcImc()"> imc</button>
+    </div>
+  
+    <div formGroupName="ventilation">
+      <div class="d-flex  justify-content-center m-3">
+        <input formControlName="preOxygenation" type="checkbox" class="btn-check" id="preOxygenation" autocomplete="off">
+        <label class="btn btn-outline-primary" for="preOxygenation">preOxygenation</label>
+      </div>
+      <h4>Ventilation</h4>
+      <div class="d-flex justify-content-between">
+  
+        <input formControlName="masqueFacial" type="checkbox" class="btn-check" id="masqueFacial" autocomplete="off">
+        <label class="btn btn-outline-primary" for="masqueFacial">masque facial</label>
+  
+        <input formControlName="masqueLarynge" type="checkbox" class="btn-check" id="masqueLarynge" autocomplete="off">
+        <label class="btn btn-outline-primary" for="masqueLarynge">masque Larynge </label>
+  
+        <input formControlName="laryngoStandrd" type="checkbox" class="btn-check" id="laryngoStandrd" autocomplete="off">
+        <label class="btn btn-outline-primary" for="laryngoStandrd">laryngo Standrd</label>
+      </div>
+  
+      <div class="d-flex justify-content-between m-3">
+        <input formControlName="videoLaryngoscopie" type="checkbox" class="btn-check" id="videoLaryngoscopie"
+          autocomplete="off">
+        <label class="btn btn-outline-primary" for="videoLaryngoscopie">videoLaryngoscopie</label>
+  
+        <input formControlName="fibroIntubation" type="checkbox" class="btn-check" id="fibroIntubation"
+          autocomplete="off">
+        <label class="btn btn-outline-primary" for="fibroIntubation">fibro intubation</label>
+      </div>
+  
+    </div>
+  
+    <div formGroupName="chekded" class="mt-3 mb-3" >
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input " id="appuiSverifies">
+        <label class="form-check-label" for="appuiSverifies">appuis verifies /protégés</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="instalation">
+        <label class="form-check-label" for="instalation">instalation validee par operateur</label>
+      </div>
+    </div>
+  
+    <div formGroupName="precisions">
+      <div class="mb-3">
+        <label for="volumeRetransfuseMl" class="form-label">volume retransfusé en ml</label>
+        <input formControlName="volumeRetransfuseMl" type="number" class="form-control" id="volumeRetransfuseMl">
+      </div>
+      <div class="mb-3">
+        <label for="precision" class="form-label">precision</label>
+        <textarea formControlName="precision" class="form-control" id="precision" rows="3"
+        [ngClass]="{ 'is-invalid': !form.get('precision').valid }"></textarea>
+        <div class="invalid-feedback">
+          <span *ngIf="form.get('precision').errors?.required">
+            Veuillez entrer votre precision.
+          </span>
+        </div>
+      </div>
+  
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+    
+</div>
 
-  <div formGroupName="precisions">
-    <div class="mb-3">
-      <label for="volumeRetransfuseMl" class="form-label">volume retransfusé en ml</label>
-      <input formControlName="volumeRetransfuseMl" type="number" class="form-control" id="volumeRetransfuseMl">
-    </div>
-    <div class="mb-3">
-      <label for="precision" class="form-label">precision</label>
-      <textarea formControlName="precision" class="form-control" id="precision" rows="3"></textarea>
-    </div>
-
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>

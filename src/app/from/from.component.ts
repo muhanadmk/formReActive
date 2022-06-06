@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-from',
   templateUrl: './from.component.html',
-  styleUrls: ['./from.component.css']
 })
 export class FromComponent implements OnInit {
 
-  form: any;
+  public form: any;
   isParacetamolSelected: boolean = false;
 
   constructor(private fb: FormBuilder) {}
@@ -16,7 +15,7 @@ export class FromComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       paracetamol: this.fb.group({
-        dosageMg: [''],
+        dosageMg: [null, [Validators.required]],
         time: [''],
       }),
       ventilation: this.fb.group({
@@ -29,12 +28,18 @@ export class FromComponent implements OnInit {
       }),
       precisions: this.fb.group({
         volumeRetransfuseMl: [''],
-        precision: [''],
+        precision: [null, Validators.required],
       }),
       chekded: this.fb.group({
         appuiSverifies: [''],
         instalation: [''],
+      }),
+      imc: this.fb.group({
+        poids: [0],
+        taile: [0],
       })
+    },{
+      updateOn: 'blur'
     });
   }
 
@@ -48,6 +53,21 @@ export class FromComponent implements OnInit {
       this.isParacetamolSelected = false;
     }
 
+ }
+
+ CalcImc(){
+   const imcInput = this.form.value.imc; 
+  if (imcInput.poids || imcInput.poids < 0) {
+    console.log('err poids moins zero');
+  }
+
+  if (imcInput.taile || imcInput.taile < 0) {
+    console.log('err taile moins zero');
+  }
+  
+  let imcCalc= (imcInput.poids ) / (imcInput.taile * imcInput.taile);
+  console.log(imcCalc);
+  
  }
 
  onSubmit(){
