@@ -2,25 +2,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "downlevelIteration": true, // To iterate of URLSearchParams
+    "target": "es5", // Target es5 for IE compatibility
+    "typeRoots": [
+      "node_modules/@types"
+    ],"lib": [
+      "es2017",
+      "dom",
+      "dom.iterable" // To iterate of URLSearchParams
     ]
   },
   "angularCompilerOptions": {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-from',
@@ -7,70 +7,83 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 })
 export class FromComponent implements OnInit {
 
-  public form: any;
+  form: any;
   isParacetamolSelected: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      paracetamol: this.fb.group({
-        dosageMg: [null, [Validators.required]],
+    this.form = this._fb.group({
+      paracetamol: this._fb.group({
+        dosageMg: [''],
         time: [''],
       }),
-      ventilation: this.fb.group({
+      ventilation: this._fb.group({
         preOxygenation: [''],
         masqueFacial: [''],
         masqueLarynge: [''],
         laryngoStandrd: [''],
-        videoLaryngoscopie: [''],    
+        videoLaryngoscopie: [''],
         fibroIntubation: [''],
       }),
-      precisions: this.fb.group({
+      precisions: this._fb.group({
         volumeRetransfuseMl: [''],
-        precision: [null, Validators.required],
+        precision: ['', Validators.required],
       }),
-      chekded: this.fb.group({
+      chekded: this._fb.group({
         appuiSverifies: [''],
         instalation: [''],
       }),
-      imc: this.fb.group({
-        poids: [0],
-        taile: [0],
+      imc: this._fb.group({
+        poids: [''],
+        taile: [''],
       })
-    },{
+    }, {
       updateOn: 'blur'
     });
   }
 
-  setParacetamolSelected($event :any) {
+  setParacetamolSelected($event: any) {
 
     if ($event.target.checked === true) {
       this.isParacetamolSelected = true;
     }
 
-    if ($event.target.checked === false){
+    if ($event.target.checked === false) {
       this.isParacetamolSelected = false;
     }
 
- }
-
- CalcImc(){
-   const imcInput = this.form.value.imc; 
-  if (imcInput.poids || imcInput.poids < 0) {
-    console.log('err poids moins zero');
   }
 
-  if (imcInput.taile || imcInput.taile < 0) {
-    console.log('err taile moins zero');
-  }
-  
-  let imcCalc= (imcInput.poids ) / (imcInput.taile * imcInput.taile);
-  console.log(imcCalc);
-  
- }
+  calcImc() {
+    const imcInput = this.form.value.imc;
+    if (imcInput.poids || imcInput.poids < 0) {
+      console.log('err poids moins zero');
+    }
 
- onSubmit(){
-   console.log(this.form.value);
- }
+    if (imcInput.taile || imcInput.taile < 0) {
+      console.log('err taile moins zero');
+    }
+
+    let imcCalc = (imcInput.poids) / (imcInput.taile * imcInput.taile);
+    console.log(imcCalc);
+
+  }
+
+  checkVentilation(control : FormControl){
+    const ventilation = this.form.value.ventilation;
+    if (ventilation != null){
+      if (!ventilation.masqueFacial && !ventilation.masqueLarynge
+        && ventilation.laryngoStandrd){
+        return {errCehckOne: true}
+      }
+    }
+  return null
+  }
+
+
+  onSubmit() {
+    console.log(this.form.value);
+  }
 }

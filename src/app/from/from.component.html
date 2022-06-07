@@ -31,13 +31,13 @@
     <div formGroupName="imc" class="d-flex justify-content-between m-3">
       <div class="form-input">
         <label for="poids">poids :</label>
-        <input type="number" class="form-control" id="poids" formControlName="poids" name="poids" placeholder="almokdad" required>
+        <input type="number" class="form-control" id="poids" formControlName="poids" name="poids" placeholder="almokdad" >
       </div>
       <div class="form-input">
         <label for="taile">taile en m :</label>
-        <input type="number" class="form-control" id="taile" formControlName="taile" name="taile" placeholder="almokdad" required>
+        <input type="number" class="form-control" id="taile" formControlName="taile" name="taile" placeholder="almokdad" >
       </div>
-      <button type="button" class="btn btn-primary" (click)="CalcImc()"> imc</button>
+      <button type="button" class="btn btn-primary" (click)="calcImc()"> imc</button>
     </div>
   
     <div formGroupName="ventilation">
@@ -88,17 +88,11 @@
       </div>
       <div class="mb-3">
         <label for="precision" class="form-label">precision</label>
-        <textarea formControlName="precision" class="form-control" id="precision" rows="3"
-        [ngClass]="{ 'is-invalid': !form.get('precision').valid }"></textarea>
-        <div class="invalid-feedback">
-          <span *ngIf="form.get('precision').errors?.required">
-            Veuillez entrer votre precision.
-          </span>
-        </div>
+        <textarea formControlName="precision" class="form-control" id="precision" rows="3"></textarea>
       </div>
   
     </div>
-  
+<!--    -->
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
     

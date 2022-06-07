@@ -9,6 +9,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { FromComponent } from './from/from.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TestFormComponent } from './test-form/test-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     Page404Component,
     LandingPageComponent,
-    FromComponent
+    FromComponent,
+    TestFormComponent
   ],
   imports: [
     BrowserModule,
